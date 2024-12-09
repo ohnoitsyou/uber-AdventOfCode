@@ -34,7 +34,7 @@ class Day202306 : PuzzleSolution(2023, 6, true) {
 
     override fun solve(sampleMode: Boolean) {
         println("2023 Day 06")
-        Utils.readInputResource(sampleMode, "2023/six.txt")?.let {
+        Utils.readInputResource(sampleMode, "2023/six.txt.txt")?.let {
             val times = it.first().substringAfter(":").trim().split(" +".toRegex()).map { time ->
                 time.toInt()
             }

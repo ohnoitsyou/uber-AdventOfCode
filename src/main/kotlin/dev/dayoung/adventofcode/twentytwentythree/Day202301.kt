@@ -9,7 +9,7 @@ import kotlin.time.Duration.Companion.seconds
 class Day202301 : PuzzleSolution(2023, 1) {
 
     private final val digitRegex = Regex("[0-9]")
-    private final val words = listOf("one" to 1, "two" to 2, "three" to 3, "four" to 4, "five" to 5, "six" to 6, "seven" to 7, "eight" to 8, "nine" to 9)
+    private final val words = listOf("one" to 1, "two" to 2, "three" to 3, "four" to 4, "five" to 5, "six.txt" to 6, "seven" to 7, "eight" to 8, "nine" to 9)
     private final val lookaheadRegex = """(?=(${words.joinToString("|") { it.first } + "|[0-9]"}))""".toRegex()
     fun partOne(lines: List<String>): Int = lines.sumOf { line ->
         digitRegex.findAll(line).let { matches ->

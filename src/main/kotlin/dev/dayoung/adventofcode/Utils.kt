@@ -13,7 +13,7 @@ class Utils {
     }
 }
 
-class Vec2i(val x: Int, val y: Int) {
+data class Vec2i(val x: Int, val y: Int) {
     operator fun plus(other: Vec2i): Vec2i { return Vec2i(x + other.x, y + other.y) }
     operator fun minus(other: Vec2i): Vec2i { return Vec2i(x - other.x, y - other.y) }
 

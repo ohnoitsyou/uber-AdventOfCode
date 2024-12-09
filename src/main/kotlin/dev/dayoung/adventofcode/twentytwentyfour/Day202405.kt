@@ -2,6 +2,8 @@ package dev.dayoung.adventofcode.twentytwentyfour
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
+import dev.dayoung.adventofcode.cut
+import dev.dayoung.adventofcode.splitFile
 import org.springframework.stereotype.Component
 
 data class Update(val pages: List<Int>)
