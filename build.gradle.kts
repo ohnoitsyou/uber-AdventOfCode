@@ -5,7 +5,13 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "2.1.0"
     kotlin("plugin.spring") version "2.1.0"
+    application
 }
+
+application {
+    mainClass = "dev.dayoung.adventofcode.UAoCApplicationKt"
+}
+
 
 group = "dev.dayoung.adventofcode"
 version = "0.0.1-SNAPSHOT"

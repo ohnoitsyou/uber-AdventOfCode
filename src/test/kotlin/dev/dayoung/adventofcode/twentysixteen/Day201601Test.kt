@@ -23,7 +23,7 @@ class Day201601Test {
     fun `R2, R2, R2`() {
         val instructions = listOf("R2", "R2", "R2")
         val blocks = Day201601().partOne(instructions)
-        assertEquals(2, blocks)
+        assertEquals(-2, blocks)
     }
 
     @Test
