@@ -39,7 +39,6 @@ class Day202407 : PuzzleSolution(2024, 7, true) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        println("2024 - Day 07")
         log.info { "2024 - Day 07" }
         val lines = Utils.readInputResource(sampleMode, "2024/seven.txt")?.let { parser(it) }
         log.info { "Part 1: ${partOne(lines!!)}" }
