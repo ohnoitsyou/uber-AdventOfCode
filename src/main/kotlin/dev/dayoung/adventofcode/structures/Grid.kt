@@ -2,7 +2,22 @@ package dev.dayoung.adventofcode.structures
 
 import dev.dayoung.adventofcode.Vec2i
 
-open class Grid<T>(val points: List<T>, val width: Int, val height: Int) {
+open class Grid<T>(val points: List<T>, val width: Int, val height: Int, private val oobBehavior: OOBBehavior<T> = Throw()) {
+    sealed interface OOBBehavior<T> {
+        fun oob(): T
+    }
+    class Throw<T> : OOBBehavior<T> {
+        override fun oob(): T {
+            throw IndexOutOfBoundsException("Out of bounds")
+        }
+    }
+
+    class ReturnDefault<T>(private val default: T): OOBBehavior<T> {
+        override fun oob(): T {
+            return default
+        }
+    }
+
     init {
         require(points.size == width * height) { "Number of points (${points.size} doesn't match given height (${height}) and width (${width})" }
     }
@@ -22,11 +37,9 @@ open class Grid<T>(val points: List<T>, val width: Int, val height: Int) {
     }
 
     operator fun get(x: Int, y: Int): T {
-        if( x < 0 || x > width || y < 0 || y > height) {
-            throw IndexOutOfBoundsException()
-        }
-
-        return points[y * width + x]
+        return if (x in 0 until width && y in 0 until height) {
+            points[y * width + x]
+        } else oobBehavior.oob()
     }
     operator fun get(c: Vec2i): T = get(c.x, c.y)
 

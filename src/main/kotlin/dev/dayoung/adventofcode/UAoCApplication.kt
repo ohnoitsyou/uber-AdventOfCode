@@ -1,6 +1,7 @@
 package dev.dayoung.adventofcode
 
 import com.github.ajalt.clikt.core.CliktCommand
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.springframework.boot.CommandLineRunner
@@ -24,7 +25,7 @@ class UAoCApplication(val solutions: List<PuzzleSolution>): CliktCommand(), Comm
 
         val sampleMode = false
         val oneShot = false
-        val single = Pair(2024, 5)
+        val single = Pair(2019, 1)
 
         val targetSolutions = if (!oneShot) {
             sortedSolutions
@@ -40,7 +41,8 @@ class UAoCApplication(val solutions: List<PuzzleSolution>): CliktCommand(), Comm
             targetSolutions.forEach {
                 launch {
                     measureTime {
-                        it.solve(sampleMode)
+                        it.main()
+//                        it.solve(sampleMode)
                     }.inWholeMicroseconds.let {
                         println("$it μ sec")
                     }
@@ -52,7 +54,12 @@ class UAoCApplication(val solutions: List<PuzzleSolution>): CliktCommand(), Comm
 }
 
 abstract class PuzzleSolution(val year: Int, val day: Int, val hasSample: Boolean = false) {
+    val log = KotlinLogging.logger { }
     abstract fun solve(sampleMode: Boolean)
+
+    fun main() {
+        this.solve(false)
+    }
 }
 
 fun main(args: Array<String>) {

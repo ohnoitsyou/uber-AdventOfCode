@@ -28,6 +28,14 @@ data class Vec2i(val x: Int, val y: Int) {
     }
 }
 
+data class Vec2iV<T>(val point: Vec2i, val value: T) {
+    override fun toString(): String = "$value"
+}
+
+fun List<String>.toVec2iVList(): List<Vec2iV<Char>> {
+    return this.flatMapIndexed { y, row -> row.mapIndexed { x, cell ->  Vec2iV(Vec2i(x, y), cell)} }
+}
+
 fun String.cut(delimiter: String): Pair<String, String> {
     require(this.indexOf(delimiter) >= 0) { "Delimiter ($delimiter) must be in string ($this)" }
     return this.substringBefore(delimiter) to this.substringAfter(delimiter)

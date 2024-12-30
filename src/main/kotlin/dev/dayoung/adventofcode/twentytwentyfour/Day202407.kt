@@ -8,8 +8,6 @@ import kotlin.math.pow
 
 @Component
 class Day202407 : PuzzleSolution(2024, 7, true) {
-    private val log = KotlinLogging.logger {}
-
     private fun partOne(input: List<Pair<String, List<String>>>) : Long {
         return input.fold(0) { acc, entry -> acc + testNumberLine(entry.first.toLong(), 0, entry.second.map { it.toLong() }) }
     }

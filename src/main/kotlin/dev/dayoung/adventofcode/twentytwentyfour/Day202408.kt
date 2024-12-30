@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class Day202408: PuzzleSolution(2024, 8, true) {
-    private val log = KotlinLogging.logger {}
-
     private fun partOne() { }
 
     private val parser = { input: List<String> -> input }
