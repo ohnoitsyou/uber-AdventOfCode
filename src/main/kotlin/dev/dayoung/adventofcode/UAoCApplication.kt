@@ -57,7 +57,7 @@ abstract class PuzzleSolution(val year: Int, val day: Int, val hasSample: Boolea
     val log = KotlinLogging.logger { }
     abstract fun solve(sampleMode: Boolean)
 
-    fun main() {
+    open fun main() {
         this.solve(false)
     }
 }
