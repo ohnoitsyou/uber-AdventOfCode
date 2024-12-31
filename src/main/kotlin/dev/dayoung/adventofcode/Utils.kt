@@ -1,5 +1,7 @@
 package dev.dayoung.adventofcode
 
+import kotlin.math.abs
+
 class Utils {
     companion object {
         private fun readResourceFile(filename: String) =
@@ -17,6 +19,10 @@ data class Vec2i(val x: Int, val y: Int) {
     operator fun plus(other: Vec2i): Vec2i { return Vec2i(x + other.x, y + other.y) }
     operator fun minus(other: Vec2i): Vec2i { return Vec2i(x - other.x, y - other.y) }
 
+    fun manhattanDistance(other: Vec2i): Int {
+        return abs(x - other.x) + abs(y - other.y)
+    }
+
     companion object {
         val UP = Vec2i(0, -1)
         val DOWN = Vec2i(0, 1)
@@ -27,6 +33,7 @@ data class Vec2i(val x: Int, val y: Int) {
         val DIAGONALS = listOf(UP + LEFT, UP + RIGHT, DOWN + RIGHT, DOWN + LEFT)
     }
 }
+
 
 data class Vec2iV<T>(val point: Vec2i, val value: T) {
     override fun toString(): String = "$value"

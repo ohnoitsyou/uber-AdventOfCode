@@ -3,11 +3,9 @@ package dev.dayoung.adventofcode.twentynineteen
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
 import dev.dayoung.adventofcode.structures.IntcodeComputer
+import org.springframework.stereotype.Component
 
-fun main() {
-    Day201902().main()
-}
-
+@Component
 class Day201902: PuzzleSolution(2019, 2, true) {
     fun partOne(input: List<String>): Int {
         val instructions = input.toMutableList()
