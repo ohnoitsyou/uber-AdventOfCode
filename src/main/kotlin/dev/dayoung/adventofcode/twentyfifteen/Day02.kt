@@ -22,18 +22,16 @@ class Day02: PuzzleSolution(2015, 2) {
 
 
     override fun solve(sampleMode: Boolean) {
-        println("2015 Day 02")
-        Utils.readInputResource(sampleMode, "2015/two.txt")?.map(::lineToDimensions)?.let { inputItems ->
-            println("Part One: ${partOne(inputItems)}")
-            println("Part Two: ${partTwo(inputItems)}")
+        log.info { "${super.year} - Day ${super.day}"}
+        Utils.readInputResource(sampleMode, "${super.year}/${super.day}.txt")?.map { parser(it) }?.let { inputItems ->
+            log.info { "Part One: ${partOne(inputItems)}" }
+            log.info { "Part Two: ${partTwo(inputItems)}" }
         }
     }
 
     companion object {
-        fun lineToDimensions(line: String): lwh = line.split("x").map {
-            it.toInt()
-        }.let {
-            Triple(it[0], it[1], it[2])
+        val parser = { input: String ->
+            input.split("x").map { dim -> dim.toInt() }.let { Triple(it[0], it[1], it[2]) }
         }
     }
 }

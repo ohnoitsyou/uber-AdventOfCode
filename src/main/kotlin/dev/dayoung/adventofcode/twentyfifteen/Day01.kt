@@ -6,35 +6,26 @@ import org.springframework.stereotype.Component
 
 @Component
 class Day01: PuzzleSolution(2015, 1) {
+    private fun partOne(input: List<Int>): Int = input.last()
+    private fun partTwo(input: List<Int>): Int = input.indexOfFirst { it < 0 }
 
-    private fun processInput(input: List<String>): List<Int>{
-        var floor = 0
-        return input.first().map {
-            when(it) {
-                '(' -> floor + 1
-                ')' -> floor - 1
-                else -> floor
-            }.also { floor = it }
+    override fun solve(sampleMode: Boolean) {
+        log.info { "${super.year} Day ${super.day}" }
+        Utils.readInputResource(sampleMode, "${super.year}/${super.day}.txt")?.let { parser(it.first()) }?.let { input ->
+            log.info { "Part One: ${partOne(input)}" }
+            log.info { "Part Two: ${partTwo(input)}" }
         }
     }
 
-    private fun partOne(input: List<Int>) {
-        println("Final floor: ${input.last()}")
-    }
-
-    private fun partTwo(input: List<Int>) {
-        // index should be 1 based
-        val basement = input.indexOfFirst { it < 0 } + 1
-        println("Basement index: $basement")
-
-    }
-    override fun solve(sampleMode: Boolean) {
-        println("2015 Day 01")
-        val inputString = Utils.readInputResource(sampleMode, "2015/one.txt")
-        val processedInput = inputString?.let { processInput(it) }
-        if (processedInput != null) {
-            partOne(processedInput)
-            partTwo(processedInput)
+    companion object {
+        val parser = { input: String ->
+            input.fold(listOf(0)) { acc, v ->
+                acc + when(v) {
+                    '(' -> acc.last() + 1
+                    ')' -> acc.last() - 1
+                    else -> acc.last()
+                }
+            }
         }
     }
 }
