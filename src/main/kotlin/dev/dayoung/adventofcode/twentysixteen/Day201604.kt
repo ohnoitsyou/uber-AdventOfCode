@@ -29,27 +29,31 @@ class Day201604 : PuzzleSolution(2016, 4) {
                 .joinToString("") == checksum
         }
     }
-    private fun partOne(input: List<String>): Int {
-        val roomInput = input.mapNotNull { line ->
-            lineRegex.find(line)?.groupValues?.let {
-                Room(it[1], it[2].toInt(10), it[3])
-            }
-        }
-        val validRooms = roomInput.filter { room -> room.isValid() }
-        return validRooms.sumOf { it.sectorId }
+    private fun partOne(input: List<Room>): List<Room> {
+        return input.filter { room -> room.isValid() }
     }
 
-    private fun partTwo(input: String) {
-
+    private fun partTwo(input: List<Room>, targetString: String): Room {
+        return input.first { room ->
+            val rot = room.sectorId % 26
+            room.name.map { c ->
+                if(c == '-') { ' ' } else {
+                    (((c.code - 'a'.code + rot) % 26) + 'a'.code).toChar()
+                }
+            }.joinToString("").contains(targetString)
+        }
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/four.txt")?.let {
-            println("Sector ID sum: ${partOne(it)}")
+        Utils.readInputResource(sampleMode, "2016/four.txt")?.let { lines ->
+            val roomInput = lines.mapNotNull { line ->
+                lineRegex.find(line)?.groupValues?.let { match ->
+                    Room(match[1], match[2].toInt(10), match[3])
+                }
+            }
+            val validRooms = partOne(roomInput)
+            println("Sector ID sum: ${validRooms.sumOf { it.sectorId }}")
+            println("North-pole storage: ${partTwo(validRooms, "northpole").sectorId}")
         }
     }
-}
-
-fun main() {
-    Day201604().solve(false)
 }

@@ -2,7 +2,6 @@ package dev.dayoung.adventofcode.twentytwentyfour
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import dev.dayoung.adventofcode.structures.Grid
 
 
 class Day202404: PuzzleSolution(2024, 4) {

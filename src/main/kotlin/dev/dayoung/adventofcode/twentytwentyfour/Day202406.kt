@@ -4,17 +4,8 @@ import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
 import dev.dayoung.adventofcode.Vec2i
 import dev.dayoung.adventofcode.structures.Grid
-import dev.dayoung.adventofcode.structures.withVisited
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import kotlin.time.measureTime
 
 fun main() {
@@ -100,7 +91,7 @@ class Day202406 : PuzzleSolution(2024, 6) {
 
     override fun solve(sampleMode: Boolean) {
         println("2024 - Day 06")
-        Utils.readInputResource(sampleMode, "2024/six.txt")?.let { lines ->
+        Utils.readInputResource(sampleMode, "input/2024/six.txt")?.let { lines ->
             val grid = parser(lines)
             measureTime {
                 println("Part One: ${partOne(grid)}")
