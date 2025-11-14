@@ -47,7 +47,7 @@ class Day202403: PuzzleSolution(2024, 3) {
 
     override fun solve(sampleMode: Boolean) {
         println("2024 - Day 03")
-        Utils.readInputResource(sampleMode, "2024/three.txt")?.let { instructions ->
+        Utils.readInputResource(sampleMode, "input/2024/three.txt")?.let { instructions ->
             println("Part One: ${partOne(instructions)}")
             println("Part Two: ${partTwo(instructions)}")
         }

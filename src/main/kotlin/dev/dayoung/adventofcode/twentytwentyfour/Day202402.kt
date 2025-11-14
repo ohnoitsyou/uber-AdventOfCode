@@ -46,7 +46,7 @@ class Day202402: PuzzleSolution(2024, 2) {
 
     override fun solve(sampleMode: Boolean) {
         println("2024 - Day 02")
-        Utils.readInputResource(sampleMode, "2024/two.txt")?.let {
+        Utils.readInputResource(sampleMode, "input/2024/two.txt")?.let {
             val reports = it.map { Report(it.split(" ".toRegex()).map { it.toInt() }) }
             println("Part 01: ${partOne(reports)}")
             println("Part 02: ${partTwo(reports)}")

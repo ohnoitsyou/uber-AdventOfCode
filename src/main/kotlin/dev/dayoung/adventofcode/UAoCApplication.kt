@@ -24,8 +24,8 @@ class UAoCApplication(val solutions: List<PuzzleSolution>): CliktCommand(), Comm
         val skipList = listOf(Pair(2015, 4))
 
         val sampleMode = false
-        val oneShot = false
-        val single = Pair(2019, 1)
+        val oneShot = true
+        val single = Pair(2024, 1)
 
         val targetSolutions = if (!oneShot) {
             sortedSolutions
