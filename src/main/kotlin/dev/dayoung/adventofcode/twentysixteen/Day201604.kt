@@ -2,7 +2,9 @@ package dev.dayoung.adventofcode.twentysixteen
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
+import org.springframework.stereotype.Component
 
+@Component
 class Day201604 : PuzzleSolution(2016, 4) {
 
     // Rules:
