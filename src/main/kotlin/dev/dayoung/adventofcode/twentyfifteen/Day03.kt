@@ -18,7 +18,7 @@ class Day03 : PuzzleSolution(2015, 3){
 
     fun partOne(input: String): Int {
         return input.toList().fold(listOf(ORIGIN)) { acc, direction: Char ->
-            acc + acc.last() + cardinalMap[direction]!!
+            acc + (acc.last() + cardinalMap[direction]!!)
         }.toSet().size
     }
 
