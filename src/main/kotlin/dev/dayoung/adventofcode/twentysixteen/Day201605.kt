@@ -3,40 +3,40 @@ package dev.dayoung.adventofcode.twentysixteen
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
 import java.security.MessageDigest
-import kotlin.collections.all
+import kotlin.time.measureTime
 
 class Day201605 : PuzzleSolution(2016, 5) {
-    val md = MessageDigest.getInstance("MD5")
-
+    val md: MessageDigest = MessageDigest.getInstance("MD5")
 
     @OptIn(ExperimentalStdlibApi::class)
-    private fun doSolve(input: String): String {
+    private fun doSolve(input: String): Pair<String, String> {
         val partOne = CharArray(8)
         val partTwo = CharArray(8)
         var idx = 0
         var i = 0
-        while(partOne.any { it.code == 0 } && partTwo.any { it.code == 0}) {
-//        for (i in 0 until 8) {
-            var hash: ByteArray
+        var hash: String
+        while(partOne.any { it.code == 0 } || partTwo.any { it.code == 0}) {
             do {
-                hash = md.digest("$input$idx".toByteArray())
+                hash = md.digest("$input$idx".toByteArray()).toHexString()
                 idx++
-                if(idx % 10000000 == 0) {
-                    println("$idx")
+            } while(!hash.startsWith("00000"))
+            if(i <= partOne.lastIndex) {
+                partOne[i] = hash[5]
+                i++
+            }
+            if(hash[5].code >= '0'.code && hash[5].code <= '9'.code) {
+                val loc: Int = Integer.parseInt(hash[5].toString())
+                if (loc <= partTwo.lastIndex && partTwo[loc].code == 0) {
+                    partTwo[loc] = hash[6]
                 }
-            } while(!hash.toHexString().startsWith("00000"))
-            partOne[i] = hash.toHexString()[5]
-            i++
+            }
         }
-        return partOne.concatToString()
+        return Pair(partOne.concatToString(), partTwo.concatToString())
     }
 
     override fun solve(sampleMode: Boolean) {
         val input = Utils.readInputResource(sampleMode, "2016/five.txt")?.first()!!
-        println(doSolve(input))
+        val (pOne, pTwo) = doSolve(input)
+        println("Part one: $pOne\nPart two: $pTwo")
     }
-}
-
-fun main() {
-    Day201605().solve(false)
 }
