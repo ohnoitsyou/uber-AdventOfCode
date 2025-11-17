@@ -2,10 +2,11 @@ package dev.dayoung.adventofcode.twentysixteen
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
+import org.springframework.stereotype.Component
 import java.security.MessageDigest
-import kotlin.time.measureTime
 
-class Day201605 : PuzzleSolution(2016, 5) {
+@Component
+class Day201605 : PuzzleSolution(2016, 5, true) {
     val md: MessageDigest = MessageDigest.getInstance("MD5")
 
     @OptIn(ExperimentalStdlibApi::class)
