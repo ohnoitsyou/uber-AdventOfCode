@@ -6,6 +6,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     kotlin("jvm") version "2.2.20"
     kotlin("plugin.spring") version "2.2.20"
+    kotlin("plugin.allopen") version "2.2.20"
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.13"
     application
 }
 
@@ -13,6 +15,10 @@ application {
     mainClass = "dev.dayoung.adventofcode.UAoCApplicationKt"
 }
 
+// Configure all-open to automatically 'open' any class with @State
+allOpen {
+    annotation("org.openjdk.jmh.annotations.State")
+}
 
 group = "dev.dayoung.adventofcode"
 version = "0.0.1-SNAPSHOT"
@@ -39,6 +45,16 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.13")
+}
+sourceSets {
+    create("benchmark")
+}
+
+kotlin {
+    target {
+        compilations.getByName("benchmark").associateWith(compilations.getByName("main"))
+    }
 }
 
 tasks.withType<KotlinCompile> {
@@ -50,4 +66,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+benchmark {
+    targets {
+        register("benchmark")
+    }
 }
