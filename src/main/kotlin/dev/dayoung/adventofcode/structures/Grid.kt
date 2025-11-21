@@ -2,25 +2,34 @@ package dev.dayoung.adventofcode.structures
 
 import dev.dayoung.adventofcode.Vec2i
 
-open class Grid<T>(val points: List<T>, val width: Int, val height: Int, private val oobBehavior: OOBBehavior<T> = Throw()) {
+
+open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, open val oobBehavior: OOBBehavior<T> = Throw()) {
     sealed interface OOBBehavior<T> {
-        fun oob(): T
+        fun oob(grid: Grid<T>, point: Vec2i): T
     }
     class Throw<T> : OOBBehavior<T> {
-        override fun oob(): T {
+        override fun oob(grid: Grid<T>, point: Vec2i): T {
             throw IndexOutOfBoundsException("Out of bounds")
         }
     }
 
     class ReturnDefault<T>(private val default: T): OOBBehavior<T> {
-        override fun oob(): T {
+        override fun oob(grid: Grid<T>, point: Vec2i): T {
             return default
         }
     }
 
-    init {
-        require(points.size == width * height) { "Number of points (${points.size} doesn't match given height (${height}) and width (${width})" }
+    class Loop<T>(): OOBBehavior<T> {
+        override fun oob(grid: Grid<T>, point: Vec2i): T {
+            val x = point.x % grid.width
+            val y = point.y % grid.height
+            return grid[x, y]
+        }
     }
+
+//    init {
+//        require(points.size == width * height) { "Number of points (${points.size} doesn't match given height (${height}) and width (${width})" }
+//    }
 
     val coords = (0 until height).flatMap { y -> (0 until width) }
 
@@ -39,13 +48,13 @@ open class Grid<T>(val points: List<T>, val width: Int, val height: Int, private
     operator fun get(x: Int, y: Int): T {
         return if (x in 0 until width && y in 0 until height) {
             points[y * width + x]
-        } else oobBehavior.oob()
+        } else oobBehavior.oob(this, Vec2i(x, y))
     }
     operator fun get(c: Vec2i): T = get(c.x, c.y)
 
     // get col, row
-    open operator fun get(x: Int) = Column(this, x)
-    open fun getRow(y: Int) = Row(this, y)
+    operator fun get(x: Int) = Column(this, x)
+    fun getRow(y: Int) = Row(this, y)
 
     operator fun contains(c: Vec2i): Boolean = c.y * width + c.x in 0 until width * height
 
@@ -56,7 +65,7 @@ open class Grid<T>(val points: List<T>, val width: Int, val height: Int, private
         }
     }
 
-    fun print() {
+    open fun print() {
         repeat(width) { print("* ") }.also { println() }
         points.chunked(width).map { it.joinToString(" ") }.forEach(::println)
         repeat(width) { print("* ") }.also { println() }
@@ -83,10 +92,46 @@ open class Grid<T>(val points: List<T>, val width: Int, val height: Int, private
         }
     }
 }
+
+class MutableGrid<T>(override val points: MutableList<T>, width: Int, height : Int, oobBehavior: OOBBehavior<T> = Throw()) : Grid<T>(points, width, height, oobBehavior) {
+    operator fun set(point: Vec2i, value: T) {
+        val p = point.y * width + point.x
+        if (p <= this.points.lastIndex) {
+            points[p] = value
+        } else {
+            points[oobBehavior.oob(this, point)]
+        }
+    }
+}
+
 fun Grid<Char>.withVisited(visited: Set<Vec2i>, visitChar: Char = 'X'): Grid<Char> {
     return Grid(this.points.chunked(width).flatMapIndexed { yidx, y ->
         y.mapIndexed { xidx, x ->
             if(Vec2i(xidx, yidx) in visited) { visitChar } else { x }
         }
-    }, width, height)
+    }.toMutableList(), width, height)
+}
+
+fun MutableGrid<Char>.setRectangle(p1: Vec2i, p2: Vec2i, char: Char) {
+    val minx = minOf(p1.x, p2.x)
+    val miny = minOf(p1.y, p2.y)
+    val maxx = maxOf(p1.x, p2.x)
+    val maxy = maxOf(p1.y, p2.y)
+    (minx .. maxx).forEach { x ->
+        (miny .. maxy).forEach { y ->
+            this[Vec2i(x, y)] = char
+        }
+    }
+}
+
+fun MutableGrid<Char>.rotateColumn(x: Int, depth: Int) {
+    val src = Grid.Column<Char>(this, x)
+    src.cells.map {
+        val newPoint = it.first + Vec2i(0, depth)
+        println("Mapped ${it.first.x}, ${it.first.y} : (${it.second}) to ${newPoint.x}, ${newPoint.y} : (${it.second})")
+        it.first + Vec2i(0, depth) to it.second
+    }.forEach {
+
+        this[it.first] = it.second
+    }
 }
