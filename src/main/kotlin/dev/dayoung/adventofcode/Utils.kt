@@ -1,5 +1,7 @@
 package dev.dayoung.adventofcode
 
+import java.io.BufferedWriter
+import java.io.File
 import kotlin.math.abs
 
 class Utils {
@@ -7,10 +9,23 @@ class Utils {
         private fun readResourceFile(filename: String) =
             this::class.java.getResourceAsStream(filename)?.bufferedReader()?.readLines()
 
+        private fun writeCacheFile(filename: String): BufferedWriter {
+            val userDir = System.getProperty("user.dir")
+            val cacheDir = File(userDir, "cache")
+            if (!cacheDir.exists()) cacheDir.mkdirs()
+            return File(cacheDir, filename).bufferedWriter()
+        }
+
         fun readInputResource(sampleMode: Boolean = false, filename: String) =
             when (sampleMode) {
                 false -> readResourceFile("/input/$filename")
                 true -> readResourceFile("/sample/$filename")
+            }
+
+        fun writeCacheResource(filename: String, sampleMode: Boolean = false): BufferedWriter =
+            when(sampleMode) {
+                false -> writeCacheFile("/input/$filename")
+                true -> writeCacheFile("/sample/$filename")
             }
     }
 }
