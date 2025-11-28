@@ -1,6 +1,8 @@
 package dev.dayoung.adventofcode.structures
 
 import dev.dayoung.adventofcode.Vec2i
+import dev.dayoung.adventofcode.Vec2iV
+import kotlin.math.abs
 
 
 open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, open val oobBehavior: OOBBehavior<T> = Throw()) {
@@ -26,10 +28,6 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
             return Vec2i(x, y) to grid[x, y]
         }
     }
-
-//    init {
-//        require(points.size == width * height) { "Number of points (${points.size} doesn't match given height (${height}) and width (${width})" }
-//    }
 
     val coords = (0 until height).flatMap { y -> (0 until width) }
 
@@ -93,6 +91,7 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
             repeat(width) { append("* ") }.also { appendLine() }
         }
     }
+
 }
 
 class MutableGrid<T>(override val points: MutableList<T>, width: Int, height : Int, oobBehavior: OOBBehavior<T> = Throw()) : Grid<T>(points, width, height, oobBehavior) {
@@ -109,6 +108,57 @@ class MutableGrid<T>(override val points: MutableList<T>, width: Int, height : I
             oobBehavior.oob(this, Vec2i(p, p))
           }
         }
+    }
+}
+
+open class ObstacleGrid<Char>(override val points: MutableList<Char>, width: Int, height: Int, oobBehavior: OOBBehavior<Char> = Throw(), val obstacleGenerator: (Vec2i) -> Boolean) : Grid<Char>(points, width, height, oobBehavior) {
+    companion object {
+        const val MAX_MOVE_COST = Integer.MAX_VALUE
+    }
+
+    private val heightRange: IntRange = (0 until height)
+    private val widthRange: IntRange = (0 until width)
+
+    val obstacleCache = mutableMapOf<Vec2i, Boolean>().withDefault { false }
+
+    init {
+        points.chunked(width).forEachIndexed { yidx, y -> y.forEachIndexed { xidx, c ->
+            obstacleCache[Vec2i(xidx, yidx)] = (c == '#')
+        }}
+    }
+
+    open fun isObstacle(point: Vec2i): Boolean {
+        return obstacleCache.getOrPut(point) {
+            obstacleGenerator(point)
+        }
+    }
+
+    open fun moveCost(from: Vec2i, to: Vec2i) = if (isObstacle(to)) MAX_MOVE_COST else 1
+
+    private val validMoves = Vec2i.CARDINAL
+
+    fun getNeighbours(position: Vec2i): List<Vec2i> = validMoves
+        .map { Vec2i(position.x + it.x, position.y + it.y) }
+        .filter { inGrid(it) }
+
+    private fun inGrid(it: Vec2i) = (it.x in widthRange) && (it.y in heightRange)
+
+    fun print(path: List<Vec2i> = listOf()) {
+        repeat(width) { print("*") }.also { println() }
+        (0 until height).forEach { y ->
+            (0 until width).forEach { x ->
+                val p = Vec2i(x, y)
+                val c = if (isObstacle(p)) {
+                    "#"
+                } else if (p in path) {
+                    "O"
+                } else {
+                    "."
+                }
+                print(c)
+            }.also { println() }
+        }
+        repeat(width) { print("*") }.also { println() }
     }
 }
 

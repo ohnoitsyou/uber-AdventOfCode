@@ -38,6 +38,12 @@ data class Vec2i(val x: Int, val y: Int) {
         return abs(x - other.x) + abs(y - other.y)
     }
 
+    fun heuristicDistance( end: Vec2i): Int {
+        val dx = abs(this.x - end.x)
+        val dy = abs(this.y - end.y)
+        return (dx + dy) + -2 * minOf(dx, dy)
+    }
+
     companion object {
         val ORIGIN = Vec2i(0, 0)
         val UP = Vec2i(0, -1)
