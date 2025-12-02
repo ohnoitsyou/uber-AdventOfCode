@@ -31,7 +31,7 @@ class Day202307: PuzzleSolution(2023, 7, true) {
 
     override fun solve(sampleMode: Boolean) {
         println("2023 Day 07")
-        Utils.readInputResource(sampleMode, "2023/seven.txt")?.let {
+        Utils.readInputResource("2023/seven.txt", sampleMode)?.let {
             val hands = it.map { handBid ->
                 val hb = handBid.split(" +".toRegex())
                 hb.first().trim() to hb.last().toInt()

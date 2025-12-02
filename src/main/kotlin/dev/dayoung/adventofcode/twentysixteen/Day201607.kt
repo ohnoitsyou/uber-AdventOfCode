@@ -35,7 +35,7 @@ class Day201607: PuzzleSolution(2016, 7) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/seven.txt")?.let { input ->
+        Utils.readInputResource("2016/seven.txt", sampleMode)?.let { input ->
             val d1 = measureTimedValue { partOne(input) }
             val d2 = measureTimedValue { partTwo(input) }
             println("Solved Part 1 in ${d1.duration.inWholeMilliseconds}ms with the value: ${d1.value}")

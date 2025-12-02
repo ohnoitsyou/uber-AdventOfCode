@@ -4,8 +4,6 @@ import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
 import dev.dayoung.adventofcode.Vec2i
 import org.springframework.stereotype.Component
-import kotlin.system.measureNanoTime
-import kotlin.system.measureTimeMillis
 
 typealias Wire = Set<Vec2i>
 @Component
@@ -58,7 +56,7 @@ class Day201903: PuzzleSolution(2019,3, true) {
 
     override fun solve(sampleMode: Boolean) {
         log.info { "${super.year} - Day ${super.day}" }
-        Utils.readInputResource(sampleMode, "${super.year}/${super.day}.txt")?.let { parser(it) }?.let { input ->
+        Utils.readInputResource("${super.year}/${super.day}.txt", sampleMode)?.let { parser(it) }?.let { input ->
             log.info { "Part one: ${partOne(input)}" }
             log.info { "Part two: ${partTwo(input)}" }
         }

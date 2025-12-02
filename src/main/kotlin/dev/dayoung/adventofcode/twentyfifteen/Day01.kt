@@ -11,7 +11,7 @@ class Day01: PuzzleSolution(2015, 1) {
 
     override fun solve(sampleMode: Boolean) {
         log.info { "${super.year} Day ${super.day}" }
-        Utils.readInputResource(sampleMode, "${super.year}/${super.day}.txt")?.let { parser(it.first()) }?.let { input ->
+        Utils.readInputResource("${super.year}/${super.day}.txt", sampleMode)?.let { parser(it.first()) }?.let { input ->
             log.info { "Part One: ${partOne(input)}" }
             log.info { "Part Two: ${partTwo(input)}" }
         }

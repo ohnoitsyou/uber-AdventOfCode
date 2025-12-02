@@ -103,7 +103,7 @@ class Day06 : PuzzleSolution(2015, 6){
     }
     override fun solve(sampleMode: Boolean) {
         println("2015 Day 06")
-        Utils.readInputResource(sampleMode, "2015/six.txt.txt")?.let {
+        Utils.readInputResource("2015/six.txt.txt", sampleMode)?.let {
             val instructions = it.toGridInstructions()
             println("Part One: ${partOne(instructions)}")
             println("Part Two: ${partTwo(instructions)}")

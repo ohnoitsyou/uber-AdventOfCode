@@ -14,7 +14,7 @@ class Day201612: PuzzleSolution(2016, 12) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/twelve.txt")?.let { input ->
+        Utils.readInputResource("2016/twelve.txt", sampleMode)?.let { input ->
             println("p1: Register A value: ${partOne(input)}")
             println("p2: Register A value: ${partOne(input.toMutableList().apply { addFirst("cpy 1 c") })}")
         }

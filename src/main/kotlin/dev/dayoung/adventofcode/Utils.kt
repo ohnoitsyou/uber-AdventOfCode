@@ -16,7 +16,7 @@ class Utils {
             return File(cacheDir, filename).bufferedWriter()
         }
 
-        fun readInputResource(sampleMode: Boolean = false, filename: String) =
+        fun readInputResource(filename: String, sampleMode: Boolean = false) =
             when (sampleMode) {
                 false -> readResourceFile("/input/$filename")
                 true -> readResourceFile("/sample/$filename")
@@ -76,4 +76,8 @@ fun List<String>.cut(delimiter: String): List<Pair<String, String>> {
 
 fun List<String>.splitFile(predicate: (String) -> Boolean): Pair<List<String>, List<String>> {
     return this.takeWhile(predicate) to this.dropWhile(predicate)
+}
+
+fun List<String>.toIntRanges(sep: String = "-"): List<IntRange> {
+    return map { IntRange(it.substringBefore(sep).toInt(), it.substringAfter(sep).toInt())}
 }

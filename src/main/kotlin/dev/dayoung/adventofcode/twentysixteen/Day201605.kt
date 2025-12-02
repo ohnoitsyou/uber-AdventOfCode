@@ -36,7 +36,7 @@ class Day201605 : PuzzleSolution(2016, 5, true) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        val input = Utils.readInputResource(sampleMode, "2016/five.txt")?.first()!!
+        val input = Utils.readInputResource("2016/five.txt", sampleMode)?.first()!!
         val (pOne, pTwo) = doSolve(input)
         println("Part one: $pOne\nPart two: $pTwo")
     }

@@ -42,7 +42,7 @@ class Day201608 : PuzzleSolution(2016, 8) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/eight.txt")?.let { lines ->
+        Utils.readInputResource("2016/eight.txt", sampleMode)?.let { lines ->
             val gridx = lines.first().substringBefore('x').toInt()
             val gridy = lines.first().substringAfter('x').toInt()
             val points  = CharArray(gridx * gridy) { '.' }.toMutableList()

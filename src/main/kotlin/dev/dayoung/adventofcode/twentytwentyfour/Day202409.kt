@@ -2,7 +2,6 @@ package dev.dayoung.adventofcode.twentytwentyfour
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
 
 fun main() {
@@ -109,7 +108,7 @@ class Day202409: PuzzleSolution(2024, 9, true) {
 //        Utils.readInputResource(sampleMode, "2024/nine.txt")?.let { parser(it) }?. let { input ->
 //            log.info { "Part One: ${partOne(input)}" }
 //        }
-        Utils.readInputResource(sampleMode, "2024/nine.txt")?.let { parser3(it) }?. let { input ->
+        Utils.readInputResource("2024/nine.txt", sampleMode)?.let { parser3(it) }?. let { input ->
             log.info { "Part Two: ${partTwo(input)}" }
         }
     }

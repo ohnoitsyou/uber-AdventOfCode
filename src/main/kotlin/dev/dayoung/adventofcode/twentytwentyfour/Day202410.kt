@@ -5,7 +5,6 @@ import dev.dayoung.adventofcode.Utils
 import dev.dayoung.adventofcode.Vec2i
 import dev.dayoung.adventofcode.Vec2iV
 import dev.dayoung.adventofcode.structures.Grid
-import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
 
 
@@ -50,7 +49,7 @@ class Day202410 : PuzzleSolution(2024, 10, true){
 
     override fun solve(sampleMode: Boolean) {
         log.info { "2024 - Day 10" }
-        Utils.readInputResource(sampleMode, "2024/10.txt")?.let { parser(it) }?. let { grid ->
+        Utils.readInputResource("2024/10.txt", sampleMode)?.let { parser(it) }?. let { grid ->
             log.info { "Part One; ${partOne(grid)}" }
             log.info { "Part Two; ${partTwo(grid)}" }
         }

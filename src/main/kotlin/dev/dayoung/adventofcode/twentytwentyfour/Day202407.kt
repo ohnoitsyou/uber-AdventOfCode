@@ -2,9 +2,7 @@ package dev.dayoung.adventofcode.twentytwentyfour
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
-import kotlin.math.pow
 
 @Component
 class Day202407 : PuzzleSolution(2024, 7, true) {
@@ -38,7 +36,7 @@ class Day202407 : PuzzleSolution(2024, 7, true) {
 
     override fun solve(sampleMode: Boolean) {
         log.info { "2024 - Day 07" }
-        val lines = Utils.readInputResource(sampleMode, "2024/seven.txt")?.let { parser(it) }
+        val lines = Utils.readInputResource("2024/seven.txt", sampleMode)?.let { parser(it) }
         log.info { "Part 1: ${partOne(lines!!)}" }
         log.info { "Part 2: ${partTwo(lines!!)}" }
     }
