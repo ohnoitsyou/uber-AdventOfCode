@@ -55,7 +55,7 @@ class UAoCApplication(val solutions: List<PuzzleSolution>): CliktCommand(), Comm
 
 abstract class PuzzleSolution(val year: Int, val day: Int, val hasSample: Boolean = false) {
     val log = KotlinLogging.logger { }
-    abstract fun solve(sampleMode: Boolean)
+    abstract fun solve(sampleMode: Boolean = false)
 
     open fun main() {
         this.solve(false)
