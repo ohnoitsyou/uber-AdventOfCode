@@ -47,7 +47,7 @@ class Day201604 : PuzzleSolution(2016, 4) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/four.txt")?.let { lines ->
+        Utils.readInputResource("2016/four.txt", sampleMode)?.let { lines ->
             val roomInput = lines.mapNotNull { line ->
                 lineRegex.find(line)?.groupValues?.let { match ->
                     Room(match[1], match[2].toInt(10), match[3])

@@ -52,7 +52,7 @@ class Day201601: PuzzleSolution(2016, 1) {
     }
     override fun solve(sampleMode: Boolean) {
         println("2016 Day 01")
-        Utils.readInputResource(sampleMode, "input/2016/one.txt")?.first()?.let {
+        Utils.readInputResource("input/2016/one.txt", sampleMode)?.first()?.let {
             val instructions = it.split(", ")
             println("Part One: ${partOne(instructions)}")
             println("Part Two")

@@ -27,7 +27,7 @@ class Day202501: PuzzleSolution(2025, 1) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2025/01.txt")?.map {
+        Utils.readInputResource("2025/01.txt", sampleMode)?.map {
             it.substring(1).toInt() * if(it[0] == 'L') -1 else 1
         }?.let { input ->
             println("Zero count: ${partOne(input)}")

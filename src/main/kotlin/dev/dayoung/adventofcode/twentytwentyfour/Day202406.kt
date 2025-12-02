@@ -91,7 +91,7 @@ class Day202406 : PuzzleSolution(2024, 6) {
 
     override fun solve(sampleMode: Boolean) {
         println("2024 - Day 06")
-        Utils.readInputResource(sampleMode, "input/2024/six.txt")?.let { lines ->
+        Utils.readInputResource("input/2024/six.txt", sampleMode)?.let { lines ->
             val grid = parser(lines)
             measureTime {
                 println("Part One: ${partOne(grid)}")

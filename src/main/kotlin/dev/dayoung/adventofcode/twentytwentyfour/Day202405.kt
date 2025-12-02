@@ -31,7 +31,7 @@ class Day202405: PuzzleSolution(2024, 5) {
 
     override fun solve(sampleMode: Boolean) {
         println("2024 - Day 05")
-        Utils.readInputResource(sampleMode, "input/2024/five.txt")?.let { lines ->
+        Utils.readInputResource("input/2024/five.txt", sampleMode)?.let { lines ->
             val (rules, versions) = lines.splitFile { it.isNotBlank() }
             val pageRules = rules.cut("|")
                 .map { it.first.toInt() to it.second.toInt() }

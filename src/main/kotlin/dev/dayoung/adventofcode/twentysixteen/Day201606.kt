@@ -26,7 +26,7 @@ class Day201606 : PuzzleSolution(2016, 6)  {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/six.txt")?.let { lines ->
+        Utils.readInputResource("2016/six.txt", sampleMode)?.let { lines ->
             val freqMap = freqMap(lines)
             println("Part one: ${partOne(freqMap)}")
             println("Part two: ${partTwo(freqMap)}")

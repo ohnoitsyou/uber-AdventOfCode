@@ -3,7 +3,6 @@ package dev.dayoung.adventofcode.twentytwentythree
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
 import org.springframework.stereotype.Component
-import kotlin.time.Duration.Companion.seconds
 
 @Component
 class Day202301 : PuzzleSolution(2023, 1) {
@@ -26,7 +25,7 @@ class Day202301 : PuzzleSolution(2023, 1) {
     }
     override fun solve(sampleMode: Boolean) {
         println("\t2023 Day 01")
-        Utils.readInputResource(sampleMode, "2023/one.txt")?.let {
+        Utils.readInputResource("2023/one.txt", sampleMode)?.let {
             println("\tPart One: ${partOne(it)}")
             println("\tPart Two: ${partTwo(it)}")
         }

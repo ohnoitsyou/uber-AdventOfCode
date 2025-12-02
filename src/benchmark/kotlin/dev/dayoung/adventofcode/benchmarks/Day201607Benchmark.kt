@@ -27,7 +27,7 @@ class Day201607Benchmark {
 
     @Setup(Level.Trial)
     fun setup() {
-        Utils.readInputResource(false, "2016/seven.txt")?.let {
+        Utils.readInputResource("2016/seven.txt")?.let {
             inputData = it
         } ?: run {
             inputData = emptyList()

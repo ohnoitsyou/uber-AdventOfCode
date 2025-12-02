@@ -6,7 +6,6 @@ import dev.dayoung.adventofcode.Vec2i
 import dev.dayoung.adventofcode.Vec2iV
 import dev.dayoung.adventofcode.structures.Grid
 import dev.dayoung.adventofcode.toVec2iVList
-import io.github.oshai.kotlinlogging.KotlinLogging
 
 fun main() {
     Day202412().solve(true)
@@ -29,7 +28,7 @@ class Day202412: PuzzleSolution(2024, 12, true) {
 
     override fun solve(sampleMode: Boolean) {
         log.info { "2024 - Day 12" }
-        Utils.readInputResource(sampleMode, "2024/12-1.txt")?.let { parser(it) }?.let { grid ->
+        Utils.readInputResource("2024/12-1.txt", sampleMode)?.let { parser(it) }?.let { grid ->
             partOne(grid)
         }
     }

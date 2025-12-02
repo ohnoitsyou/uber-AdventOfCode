@@ -13,7 +13,7 @@ class Day201613 : PuzzleSolution(2016, 13){
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/thirteen.txt")?.let {
+        Utils.readInputResource("2016/thirteen.txt", sampleMode)?.let {
             partOne(it.first())
         }
     }

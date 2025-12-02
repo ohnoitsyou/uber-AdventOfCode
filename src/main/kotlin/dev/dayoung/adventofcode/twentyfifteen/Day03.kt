@@ -32,7 +32,7 @@ class Day03 : PuzzleSolution(2015, 3){
 
     override fun solve(sampleMode: Boolean) {
         log.info { "${super.year} - Day ${super.day}"}
-        Utils.readInputResource(sampleMode, "${super.year}/${super.day}.txt")?.let { input ->
+        Utils.readInputResource("${super.year}/${super.day}.txt", sampleMode)?.let { input ->
             log.info { "Part One: ${partOne(input.first())}" }
             log.info { "Part Two: ${partTwo(input.first())}" }
         }

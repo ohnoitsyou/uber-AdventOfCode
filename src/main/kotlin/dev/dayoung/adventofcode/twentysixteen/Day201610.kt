@@ -117,7 +117,7 @@ class Day201610 : PuzzleSolution(2016, 10) {
     }
 
     override fun solve(sampleMode: Boolean) {
-        Utils.readInputResource(sampleMode, "2016/ten.txt")?.let { instructions ->
+        Utils.readInputResource("2016/ten.txt", sampleMode)?.let { instructions ->
             partOne(instructions, Pair(17, 61))
             partTwo()
         }

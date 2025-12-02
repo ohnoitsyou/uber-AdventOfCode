@@ -38,7 +38,7 @@ class Day201902: PuzzleSolution(2019, 2, true) {
 
     override fun solve(sampleMode: Boolean) {
         log.info { "2019 - Day 2" }
-        Utils.readInputResource(sampleMode, "2019/2.txt")?.let { parser(it.first()) }?.let { input ->
+        Utils.readInputResource("2019/2.txt", sampleMode)?.let { parser(it.first()) }?.let { input ->
             log.info { "Part one: ${partOne(input)}" }
             log.info { "Part two: ${partTwo(input)}" }
         }
