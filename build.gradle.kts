@@ -72,4 +72,9 @@ benchmark {
     targets {
         register("benchmark")
     }
+    configurations {
+        register("day202502") {
+            include("Day202502Benchmark")
+        }
+    }
 }

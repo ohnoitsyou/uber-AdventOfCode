@@ -79,5 +79,9 @@ fun List<String>.splitFile(predicate: (String) -> Boolean): Pair<List<String>, L
 }
 
 fun List<String>.toIntRanges(sep: String = "-"): List<IntRange> {
-    return map { IntRange(it.substringBefore(sep).toInt(), it.substringAfter(sep).toInt())}
+    return map { IntRange(it.substringBefore(sep).toInt(), it.substringAfter(sep).toInt()) }
+}
+
+fun List<String>.toLongRanges(sep: String = "-"): List<LongRange> {
+    return map { LongRange(it.substringBefore(sep).toLong(), it.substringAfter(sep).toLong()) }
 }
