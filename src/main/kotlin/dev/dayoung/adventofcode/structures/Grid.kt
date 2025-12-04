@@ -29,7 +29,9 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
         }
     }
 
-    val coords = (0 until height).flatMap { y -> (0 until width).map { x -> Vec2i(x, y) } }
+    val coords by lazy {
+        (0 until height).flatMap { y -> (0 until width).map { x -> Vec2i(x, y) } }
+    }
 
     open class Column<T>(private val grid: Grid<T>, val x: Int) {
         operator fun get(y: Int) = grid[x, y]
