@@ -41,7 +41,6 @@ data class Vec2i(val x: Int, val y: Int) {
     val allNeighbors: List<Vec2i>
         get() = CARDINAL.map { this + it } + DIAGONALS.map { this + it }
 
-
     fun manhattanDistance(other: Vec2i): Int {
         return abs(x - other.x) + abs(y - other.y)
     }
