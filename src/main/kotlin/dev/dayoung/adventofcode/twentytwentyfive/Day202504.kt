@@ -39,7 +39,3 @@ class Day202504 : PuzzleSolution(2025, 4) {
         }
     }
 }
-
-fun main() {
-    Day202504().solve()
-}
