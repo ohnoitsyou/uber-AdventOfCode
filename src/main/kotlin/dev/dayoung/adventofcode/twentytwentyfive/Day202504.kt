@@ -28,6 +28,7 @@ class Day202504 : PuzzleSolution(2025, 4) {
         }
         return totalRolls
     }
+
     override fun solve(sampleMode: Boolean) {
         Utils.readInputResource("2025/04.txt", sampleMode)?.let { input ->
             val gridX = input.first().length

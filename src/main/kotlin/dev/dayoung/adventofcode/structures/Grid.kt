@@ -102,13 +102,13 @@ class MutableGrid<T>(override val points: MutableList<T>, width: Int, height : I
         if (p <= this.points.lastIndex) {
             points[p] = value
         } else {
-          if (oobBehavior is Loop) {
-            val loopPoint: Vec2i = oobBehavior.oob(this, Vec2i(p, p)).first
-            val idx = loopPoint.y * width + loopPoint.x
-            points[idx] = value
-          } else {
-            oobBehavior.oob(this, Vec2i(p, p))
-          }
+            if (oobBehavior is Loop) {
+              val loopPoint: Vec2i = oobBehavior.oob(this, Vec2i(p, p)).first
+              val idx = loopPoint.y * width + loopPoint.x
+              points[idx] = value
+            } else {
+              oobBehavior.oob(this, Vec2i(p, p))
+            }
         }
     }
 }
