@@ -35,18 +35,20 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.github.ajalt.clikt:clikt:4.2.1")
+    implementation("com.github.ajalt.clikt:clikt:5.0.3")
 
     implementation("org.apache.commons:commons-lang3:3.13.0")
     implementation("org.apache.commons:commons-text:1.11.0")
 
     implementation("io.github.oshai:kotlin-logging:7.0.3")
+    implementation("com.varabyte.kotter:kotter-jvm:1.2.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.13")
 }
+
 sourceSets {
     create("benchmark")
 }

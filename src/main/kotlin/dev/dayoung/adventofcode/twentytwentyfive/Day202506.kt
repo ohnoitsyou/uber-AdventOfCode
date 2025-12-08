@@ -12,14 +12,13 @@ class Day202506 : PuzzleSolution(2025, 6) {
     override fun solve(sampleMode: Boolean) {
         Utils.readInputResource("2025/06.txt", sampleMode)?.let { lines ->
 //            partOne(lines)
-            partTwoGrid(lines)
+            partTwoGrid(lines).logit("Part Two")
         }
     }
     fun partOne(lines: List<String>): Long {
         val gridX = lineRx.findAll(lines.first()).map { it.value.toLong() }.count()
         val points = lines.dropLast(1).flatMap { l -> lineRx.findAll(l).map { it.value.toLong() }.toList() }
         val operations = operRx.findAll(lines.takeLast(1).first()).map { it.value }.toList()
-        log.info { "Points: $points" }
         val eqns = points.withIndex().groupBy { idxv -> idxv.index % gridX }
         return eqns.map { (idx, values) ->
             if(operations[idx] == "+") {
@@ -27,7 +26,7 @@ class Day202506 : PuzzleSolution(2025, 6) {
             } else {
                 values.map { it.value}.reduce { acc: Long, i: Long ->  acc * i }
             }
-        }.sum().also { log.info { "Totals: $it" } }
+        }.sum().logit("Totals")
     }
     fun partTwo(input: List<String>): Long {
         val gridX = input.first().length.logit("gridX")
@@ -63,23 +62,19 @@ class Day202506 : PuzzleSolution(2025, 6) {
     fun partTwoGrid(input: List<String>): Long {
         val gridX = input.first().length.logit("gridX")
         val points = input.dropLast(1).joinToString("").toList().logit("points")
-        val operations = Regex("""([*+]) +""").findAll(input.last())
+        val operations = Regex("""([*+]) +""").findAll(input.last()).map { it.value }.toList()
         val g = Grid(points, gridX, input.size - 1)
-        val columns = (0 until gridX).map { idx ->
-            g[idx]
-        }
+        val columns = (0 until gridX).map { idx -> g[idx] }
         val colNumbers = columns.map { col ->
             col.values.filter { it != ' ' }.joinToString("")
-        }.logit()
-        val groups = operations.map { mr ->
-            mr.range.first.logit("Start of range")
-            mr.range.last.logit("End of range")
-            colNumbers.subList(mr.range.first, mr.range.last)
-        }.toList().logit()
-        return 0L
+        }.toMutableList().logit("Col numbers")
     }
 }
 
 fun main() {
     Day202506().solve(false)
 }
+
+// 7450962406039 -- too low
+// 7450962406002 -- too low
+// 2452968911111283 -- too high
