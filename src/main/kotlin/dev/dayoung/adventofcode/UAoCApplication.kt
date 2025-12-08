@@ -60,6 +60,11 @@ abstract class PuzzleSolution(val year: Int, val day: Int, val hasSample: Boolea
     open fun main() {
         this.solve(false)
     }
+
+    fun <T> T.logit(message: String = ""): T {
+        log.info { if(message.isEmpty()) this else "$message: $this" }
+        return this
+    }
 }
 
 fun main(args: Array<String>) {
