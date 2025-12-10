@@ -3,6 +3,8 @@ package dev.dayoung.adventofcode
 import java.io.BufferedWriter
 import java.io.File
 import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class Utils {
     companion object {
@@ -51,6 +53,10 @@ data class Vec2i(val x: Int, val y: Int) {
         return (dx + dy) + -2 * minOf(dx, dy)
     }
 
+    override fun toString(): String {
+        return "($x, $y)"
+    }
+
     companion object {
         val ORIGIN = Vec2i(0, 0)
         val UP = Vec2i(0, -1)
@@ -66,6 +72,7 @@ data class Vec2i(val x: Int, val y: Int) {
 
 data class Vec2iV<T>(val point: Vec2i, val value: T) {
     override fun toString(): String = "$value"
+    fun toStringFull(): String = "$point: $value"
 }
 
 fun List<String>.toVec2iVList(): List<Vec2iV<Char>> {
@@ -91,4 +98,21 @@ fun List<String>.toIntRanges(sep: String = "-"): List<IntRange> {
 
 fun List<String>.toLongRanges(sep: String = "-"): List<LongRange> {
     return map { LongRange(it.substringBefore(sep).toLong(), it.substringAfter(sep).toLong()) }
+}
+
+
+data class Vec3i(val x: Int, val y: Int, val z: Int) {
+    fun eDistance(other: Vec3i): Double {
+        val dx = (x - other.x).toDouble()
+        val dy = (y - other.y).toDouble()
+        val dz = (z - other.z).toDouble()
+        return sqrt(dx.pow(2) + dy.pow(2) + dz.pow(2))
+    }
+}
+
+fun List<String>.toVec3iList(sep: String = ",") : List<Vec3i> {
+    return map {
+        val (x, y, z) = it.split(",")
+        Vec3i(x.toInt(), y.toInt(), z.toInt())
+    }
 }
