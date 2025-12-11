@@ -47,10 +47,18 @@ data class Vec2i(val x: Int, val y: Int) {
         return abs(x - other.x) + abs(y - other.y)
     }
 
-    fun heuristicDistance( end: Vec2i): Int {
+    fun areaBetween(other: Vec2i): Long {
+        return abs(x - other.x + 1).toLong() * abs(y - other.y + 1).toLong()
+    }
+
+    fun heuristicDistance(end: Vec2i): Int {
         val dx = abs(this.x - end.x)
         val dy = abs(this.y - end.y)
         return (dx + dy) + -2 * minOf(dx, dy)
+    }
+
+    fun toArrayIndex(rowWidth: Int): Int {
+        return y * rowWidth + x
     }
 
     override fun toString(): String {
@@ -84,6 +92,10 @@ fun List<String>.toVec2iList(sep: String = ","): List<Vec2i> {
         val (x, y) = it.split(sep)
         Vec2i(x.toInt(), y.toInt())
     }
+}
+
+fun <T> List<T>.toComboTripleLongBy(block: (T, T) -> Long): List<Triple<T, T, Long>> {
+    return flatMapIndexed { idx, i -> this.subList(idx + 1, this.size).map { j -> Triple(i, j, block(i, j)) } }
 }
 
 fun String.cut(delimiter: String): Pair<String, String> {
