@@ -1,9 +1,6 @@
 package dev.dayoung.adventofcode.structures
 
 import dev.dayoung.adventofcode.Vec2i
-import dev.dayoung.adventofcode.Vec2iV
-import kotlin.math.abs
-
 
 open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, open val oobBehavior: OOBBehavior<T> = Throw()) {
     sealed interface OOBBehavior<T> {
@@ -11,7 +8,7 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
     }
     class Throw<T> : OOBBehavior<T> {
         override fun oob(grid: Grid<T>, point: Vec2i): Pair<Vec2i, T> {
-            throw IndexOutOfBoundsException("Out of bounds")
+            throw IndexOutOfBoundsException("Out of bounds: $point")
         }
     }
 
@@ -39,10 +36,10 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
         val values: Collection<T> get() = (0 until grid.height).map { y -> grid[x][y] }
     }
 
-    open class Row<T>(private val grid: Grid<T>, val y: Int) {
-        operator fun get(x: Int) = grid[x, y]
-        val cells: Collection<Pair<Vec2i, T>> get() = (0 until grid.width).map { x -> Vec2i(x, y) to grid[x][y] }
-        val values: Collection<T> get() = (0 until grid.width).map { x -> grid[x][y] }
+    open class Row<T>(internal val grid: Grid<T>, val y: Int) {
+        open operator fun get(x: Int) = grid[x, y]
+        open val cells: Collection<Pair<Vec2i, T>> get() = (0 until grid.width).map { x -> Vec2i(x, y) to grid[x][y] }
+        open val values: Collection<T> get() = (0 until grid.width).map { x -> grid[x][y] }
     }
 
     operator fun get(x: Int, y: Int): T {
@@ -53,6 +50,15 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
         }
     }
     operator fun get(c: Vec2i): T = get(c.x, c.y)
+
+    fun Grid<T>.columns(): Sequence<Column<T>> {
+        val grid = this
+        return sequence {
+            for(x in 0 until width) {
+                yield(grid[x])
+            }
+        }
+    }
 
     // get col, row
     operator fun get(x: Int) = Column(this, x)
@@ -94,6 +100,23 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
         }
     }
 
+    companion object {
+        @JvmName("fromSparseIntList")
+        fun fromSparseList(points: List<Int>, width: Int, height: Int, defaultChar: Char = '.'): Grid<Char> {
+            val pointList = buildList {
+                (0 until height).forEach { y->
+                    (0 until width).forEach { x->
+                        if(points.contains(y * width + x)) add('#') else add(defaultChar)
+                    }
+                }
+            }
+            return Grid(pointList, width, height)
+        }
+        @JvmName("fromSparseVec2iList")
+        fun fromSparseList(points: List<Vec2i>, width: Int, height: Int, defaultChar: Char = '.'): Grid<Char> {
+            return fromSparseList(points.map { it.toArrayIndex(width) }, width, height, defaultChar)
+        }
+    }
 }
 
 class MutableGrid<T>(override val points: MutableList<T>, width: Int, height : Int, oobBehavior: OOBBehavior<T> = Throw()) : Grid<T>(points, width, height, oobBehavior) {
