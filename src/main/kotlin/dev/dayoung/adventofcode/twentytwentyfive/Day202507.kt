@@ -2,7 +2,7 @@ package dev.dayoung.adventofcode.twentytwentyfive
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import dev.dayoung.adventofcode.Vec2i
+import dev.dayoung.adventofcode.structures.Vec2i
 import dev.dayoung.adventofcode.structures.Grid
 import org.springframework.stereotype.Component
 

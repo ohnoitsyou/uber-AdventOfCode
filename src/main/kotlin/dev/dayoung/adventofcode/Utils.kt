@@ -2,9 +2,6 @@ package dev.dayoung.adventofcode
 
 import java.io.BufferedWriter
 import java.io.File
-import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 class Utils {
     companion object {
@@ -32,67 +29,6 @@ class Utils {
     }
 }
 
-data class Vec2i(val x: Int, val y: Int) {
-    operator fun plus(other: Vec2i): Vec2i { return Vec2i(x + other.x, y + other.y) }
-    operator fun minus(other: Vec2i): Vec2i { return Vec2i(x - other.x, y - other.y) }
-
-    val linearNeighbors: List<Vec2i>
-        get() = CARDINAL.map { this + it}
-    val diagonalNeighbors: List<Vec2i>
-        get() = DIAGONALS.map { this + it }
-    val allNeighbors: List<Vec2i>
-        get() = CARDINAL.map { this + it } + DIAGONALS.map { this + it }
-
-    fun manhattanDistance(other: Vec2i): Int {
-        return abs(x - other.x) + abs(y - other.y)
-    }
-
-    fun areaBetween(other: Vec2i): Long {
-        return abs(x - other.x + 1).toLong() * abs(y - other.y + 1).toLong()
-    }
-
-    fun heuristicDistance(end: Vec2i): Int {
-        val dx = abs(this.x - end.x)
-        val dy = abs(this.y - end.y)
-        return (dx + dy) + -2 * minOf(dx, dy)
-    }
-
-    fun toArrayIndex(rowWidth: Int): Int {
-        return y * rowWidth + x
-    }
-
-    override fun toString(): String {
-        return "($x, $y)"
-    }
-
-    companion object {
-        val ORIGIN = Vec2i(0, 0)
-        val UP = Vec2i(0, -1)
-        val DOWN = Vec2i(0, 1)
-        val LEFT = Vec2i(-1, 0)
-        val RIGHT = Vec2i(1, 0)
-
-        val CARDINAL = listOf(UP, DOWN, LEFT, RIGHT)
-        val DIAGONALS = listOf(UP + LEFT, UP + RIGHT, DOWN + RIGHT, DOWN + LEFT)
-    }
-}
-
-
-data class Vec2iV<T>(val point: Vec2i, val value: T) {
-    override fun toString(): String = "$value"
-    fun toStringFull(): String = "$point: $value"
-}
-
-fun List<String>.toVec2iVList(): List<Vec2iV<Char>> {
-    return this.flatMapIndexed { y, row -> row.mapIndexed { x, cell ->  Vec2iV(Vec2i(x, y), cell)} }
-}
-
-fun List<String>.toVec2iList(sep: String = ","): List<Vec2i> {
-    return map {
-        val (x, y) = it.split(sep)
-        Vec2i(x.toInt(), y.toInt())
-    }
-}
 
 fun <T> List<T>.toComboTripleLongBy(block: (T, T) -> Long): List<Triple<T, T, Long>> {
     return flatMapIndexed { idx, i -> this.subList(idx + 1, this.size).map { j -> Triple(i, j, block(i, j)) } }
@@ -119,23 +55,3 @@ fun List<String>.toLongRanges(sep: String = "-"): List<LongRange> {
     return map { LongRange(it.substringBefore(sep).toLong(), it.substringAfter(sep).toLong()) }
 }
 
-data class Vec3i(val x: Int, val y: Int, val z: Int) {
-    operator fun plus(other: Vec3i): Vec3i { return Vec3i(x + other.x, y + other.y, z + other.z) }
-    operator fun minus(other: Vec3i): Vec3i { return Vec3i(x - other.x, y - other.y, z - other.z) }
-
-    fun eDistance(other: Vec3i): Double {
-        val dx = (x - other.x).toDouble()
-        val dy = (y - other.y).toDouble()
-        val dz = (z - other.z).toDouble()
-        return sqrt(dx.pow(2) + dy.pow(2) + dz.pow(2))
-    }
-
-    override fun toString(): String = "($x, $y, $z)"
-}
-
-fun List<String>.toVec3iList(sep: String = ","): List<Vec3i> {
-    return map {
-        val (x, y, z) = it.split(sep)
-        Vec3i(x.toInt(), y.toInt(), z.toInt())
-    }
-}

@@ -1,6 +1,6 @@
 package dev.dayoung.adventofcode.twentyfifteen
 
-import dev.dayoung.adventofcode.Vec2i
+import dev.dayoung.adventofcode.structures.Vec2i
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

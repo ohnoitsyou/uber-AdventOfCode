@@ -1,8 +1,5 @@
 package dev.dayoung.adventofcode.structures
 
-import dev.dayoung.adventofcode.Vec2i
-import dev.dayoung.adventofcode.Vec2iV
-
 //typealias GridPosition = Vec2i
 
 class AStarNav {

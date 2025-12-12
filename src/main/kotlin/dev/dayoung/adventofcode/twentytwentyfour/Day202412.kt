@@ -2,10 +2,10 @@ package dev.dayoung.adventofcode.twentytwentyfour
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import dev.dayoung.adventofcode.Vec2i
-import dev.dayoung.adventofcode.Vec2iV
+import dev.dayoung.adventofcode.structures.Vec2i
+import dev.dayoung.adventofcode.structures.Vec2iV
 import dev.dayoung.adventofcode.structures.Grid
-import dev.dayoung.adventofcode.toVec2iVList
+import dev.dayoung.adventofcode.structures.toVec2iVList
 
 fun main() {
     Day202412().solve(true)
