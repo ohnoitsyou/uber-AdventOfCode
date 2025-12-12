@@ -2,8 +2,8 @@ package dev.dayoung.adventofcode.twentytwentyfive
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import dev.dayoung.adventofcode.Vec3i
-import dev.dayoung.adventofcode.toVec3iList
+import dev.dayoung.adventofcode.structures.Vec3i
+import dev.dayoung.adventofcode.structures.toVec3iList
 import org.springframework.stereotype.Component
 
 typealias JBox = Vec3i
@@ -77,5 +77,3 @@ class Day202508 : PuzzleSolution(PUZZLE_YEAR, PUZZLE_DAY) {
         const val PUZZLE_DAY = 8
     }
 }
-
-fun main() = Day202508().solve(false)

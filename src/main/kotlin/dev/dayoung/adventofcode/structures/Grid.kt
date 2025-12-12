@@ -1,7 +1,5 @@
 package dev.dayoung.adventofcode.structures
 
-import dev.dayoung.adventofcode.Vec2i
-
 open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, open val oobBehavior: OOBBehavior<T> = Throw()) {
     sealed interface OOBBehavior<T> {
         fun oob(grid: Grid<T>, point: Vec2i): Pair<Vec2i, T>
@@ -74,9 +72,15 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
     }
 
     open fun print() {
-        repeat(width) { print("* ") }.also { println() }
-        points.chunked(width).map { it.joinToString(" ") }.forEach(::println)
-        repeat(width) { print("* ") }.also { println() }
+        println(buildString {
+            repeat(width + 1) { append("* ")}.also { appendLine() }
+            (0 .. height).forEach { y->
+                (0 .. width).forEach { x->
+                    append(points[y * (width + 1) + x], " ")
+                }.also { appendLine() }
+            }
+            repeat(width + 1) { append("* ")}.also { appendLine() }
+        })
     }
 
     fun printVisited(visited: Set<Vec2i>) {
@@ -102,16 +106,17 @@ open class Grid<T>(open val points: List<T>, val width: Int, val height: Int, op
 
     companion object {
         @JvmName("fromSparseIntList")
-        fun fromSparseList(points: List<Int>, width: Int, height: Int, defaultChar: Char = '.'): Grid<Char> {
+        fun fromSparseList(points: Collection<Int>, width: Int, height: Int, defaultChar: Char = '.'): Grid<Char> {
             val pointList = buildList {
-                (0 until height).forEach { y->
-                    (0 until width).forEach { x->
-                        if(points.contains(y * width + x)) add('#') else add(defaultChar)
+                (0 .. height).forEach { y->
+                    (0 .. width).forEach { x->
+                        if(points.contains(y * (width + 1) + x)) add('#') else add(defaultChar)
                     }
                 }
             }
             return Grid(pointList, width, height)
         }
+
         @JvmName("fromSparseVec2iList")
         fun fromSparseList(points: List<Vec2i>, width: Int, height: Int, defaultChar: Char = '.'): Grid<Char> {
             return fromSparseList(points.map { it.toArrayIndex(width) }, width, height, defaultChar)

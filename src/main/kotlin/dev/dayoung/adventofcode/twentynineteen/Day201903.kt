@@ -2,7 +2,7 @@ package dev.dayoung.adventofcode.twentynineteen
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import dev.dayoung.adventofcode.Vec2i
+import dev.dayoung.adventofcode.structures.Vec2i
 import org.springframework.stereotype.Component
 
 typealias Wire = Set<Vec2i>

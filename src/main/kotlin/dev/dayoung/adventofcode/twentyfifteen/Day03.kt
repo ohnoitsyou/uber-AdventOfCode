@@ -2,8 +2,8 @@ package dev.dayoung.adventofcode.twentyfifteen
 
 import dev.dayoung.adventofcode.PuzzleSolution
 import dev.dayoung.adventofcode.Utils
-import dev.dayoung.adventofcode.Vec2i
-import dev.dayoung.adventofcode.Vec2i.Companion.ORIGIN
+import dev.dayoung.adventofcode.structures.Vec2i
+import dev.dayoung.adventofcode.structures.Vec2i.Companion.ORIGIN
 import org.springframework.stereotype.Component
 
 @Component
